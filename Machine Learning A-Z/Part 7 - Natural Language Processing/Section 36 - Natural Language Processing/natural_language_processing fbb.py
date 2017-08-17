@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # Importing the dataset
-dataset = pd.read_csv('suportescsv.csv')
+dataset = pd.read_csv('suportes.csv')
 
 # Cleaning the texts
 import re
@@ -15,7 +15,7 @@ nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 corpus = []
-for i in range(0, 47322):
+for i in range(0, 10000):
     review = re.sub('[^a-zA-Z]', ' ', dataset['ocorrencia'][i])
     review = review.lower()
     review = review.split()
@@ -28,7 +28,7 @@ for i in range(0, 47322):
 from sklearn.feature_extraction.text import CountVectorizer
 cv = CountVectorizer(max_features = 1500)
 X = cv.fit_transform(corpus).toarray()
-y = dataset.iloc[:, 1].values
+y = dataset.iloc[:10000, 1].values
 
 # Splitting the dataset into the Training set and Test set
 from sklearn.cross_validation import train_test_split
@@ -45,3 +45,13 @@ y_pred = classifier.predict(X_test)
 # Making the Confusion Matrix
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
+
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
+from sklearn.metrics import f1_score
+ 
+print('Accuracy = %.4f' %accuracy_score(y_test, y_pred))
+print('Precision = %.4f' %precision_score(y_test, y_pred))
+print('Recall = %.4f' %recall_score(y_test, y_pred))
+print('F1_score = %.4f' %f1_score(y_test, y_pred))

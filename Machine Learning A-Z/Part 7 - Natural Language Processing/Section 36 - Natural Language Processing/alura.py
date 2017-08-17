@@ -25,9 +25,8 @@ for lista in textosQuebrados:
     dicionario.update(lista)
 
 totalDePalavras = len(dicionario)
-tuplas = zip(dicionario, xrange(totalDePalavras))
+tuplas = zip(dicionario, range(totalDePalavras))
 tradutor = {palavra:indice for palavra, indice in tuplas}
-print totalDePalavras
 
 def vetorizar_texto(texto, tradutor):
     vetor = [0] * len(tradutor)
@@ -39,7 +38,7 @@ def vetorizar_texto(texto, tradutor):
     return vetor
 
 vetoresDeTexto = [vetorizar_texto(texto, tradutor) for texto in textosQuebrados]
-marcas = classificacoes['classificacao']
+marcas = classificacoes['problema']
 
 X = np.array(vetoresDeTexto)
 Y = np.array(marcas.tolist())
